@@ -6,6 +6,7 @@ import { setDefaultHeaders } from '#/utils/cors';
 import { featherMkdirListSync } from '#/utils/filesystem';
 import { registerSchemesAsPrivileged } from './protocol';
 import ipcEvent from '#/events';
+import serverStart from '#/server/app';
 
 export default class Feather {
   private mainWindow: BrowserWindow | null = null;
@@ -33,6 +34,7 @@ export default class Feather {
   private async onCreated() {
     this.initFileSystem();
     registerSchemesAsPrivileged();
+    serverStart();
     ipcEvent.listen();
   }
 
