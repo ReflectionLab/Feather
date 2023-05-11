@@ -1,0 +1,5 @@
+snapshot*
+dist
+dist-electron
+node_modules
+!.prettierrc.js
