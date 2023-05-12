@@ -1,5 +1,5 @@
 import { join } from 'path';
-import Feather from '#/core/Feather';
+import Feather from './core/Feather';
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 process.env.DIST_ELECTRON = join(__dirname, '..');

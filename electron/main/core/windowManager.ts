@@ -1,6 +1,6 @@
 import { BrowserWindow, shell, WebPreferences } from 'electron';
 import { join } from 'node:path';
-import { CreateWindowParams } from '#/types/window';
+import { CreateWindowParams } from '../types/window';
 
 export interface WindowItem {
   id: number;
@@ -8,7 +8,7 @@ export interface WindowItem {
 }
 
 const defaultWebPreferences: WebPreferences = {
-  // preload: join(process.env.DIST_ELECTRON, '../preload/index.js'),
+  preload: join(__dirname, '../preload/index.js'),
   webSecurity: false,
   webviewTag: true,
   nodeIntegration: true,
