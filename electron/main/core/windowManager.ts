@@ -19,7 +19,6 @@ export default class WindowManager {
   private static instance: WindowManager;
   private static windowMap: Map<string, WindowItem> = new Map<string, WindowItem>();
 
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   private constructor() {}
 
   static makeInstance() {

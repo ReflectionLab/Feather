@@ -1,6 +1,6 @@
 import { app, BrowserWindow, Menu } from 'electron';
-import { join } from 'path';
-import { release } from 'os';
+import { join } from 'node:path';
+import { release } from 'node:os';
 import WindowManager from './windowManager';
 import { setDefaultHeaders } from '../utils/cors';
 import { featherMkdirListSync } from '../utils/filesystem';
@@ -32,9 +32,9 @@ export default class Feather {
   }
 
   private async onCreated() {
+    registerSchemesAsPrivileged();
     await serverStart();
     this.initFileSystem();
-    registerSchemesAsPrivileged();
     ipcEvent.listen();
   }
 
@@ -56,10 +56,8 @@ export default class Feather {
       }
     });
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
     app.on('open-file', async (event, path) => {});
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/no-empty-function
     app.on('open-url', async (event, path) => {});
 
     app.on('activate', () => {

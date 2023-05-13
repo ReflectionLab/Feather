@@ -1,23 +1,11 @@
-import { app } from 'electron';
-import { join } from 'node:path';
-import express from 'express';
-import bodyParser from 'body-parser';
-import multer from 'multer';
+async function providerBoot() {
+  const providers: Record<string, { default: any }> = import.meta.globEager('./app/providers/*.ts');
 
-const TEMP_PATH = join(app.getPath('home'), 'Feather/Temp');
+  for (const value of Object.values(providers)) {
+    await new value.default().boot();
+  }
+}
 
 export default async function serverStart() {
-  return new Promise((resolve, reject) => {
-    try {
-      const app = express();
-
-      app.use(bodyParser.urlencoded({ extended: false }));
-      app.use(bodyParser.json());
-      app.use(multer({ dest: TEMP_PATH }).any());
-
-      app.listen(3000, resolve);
-    } catch (e) {
-      reject(e);
-    }
-  });
+  await providerBoot();
 }
