@@ -29,10 +29,11 @@ export default class Feather {
 
     // Set application name for Windows 10+ notifications
     if (process.platform === 'win32') app.setAppUserModelId(app.getName());
+
+    registerSchemesAsPrivileged();
   }
 
   private async onCreated() {
-    registerSchemesAsPrivileged();
     await serverStart();
     this.initFileSystem();
     ipcEvent.listen();
