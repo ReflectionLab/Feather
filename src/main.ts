@@ -1,5 +1,5 @@
 import { createApp } from 'vue';
-import { createPinia } from 'pinia';
+import { store } from './store';
 import router from './router';
 import App from './App.vue';
 
@@ -9,7 +9,7 @@ import 'virtual:windi-devtools';
 import '@/style/index.less';
 
 const app = createApp(App);
-app.use(createPinia());
+app.use(store);
 app.use(router);
 
 app.mount('#app').$nextTick(() => {

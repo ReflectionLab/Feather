@@ -102,7 +102,7 @@ export default class WindowManager {
     // Make all links open with the browser, not with the application
     window.webContents.on('will-navigate', (event, url) => {
       event.preventDefault();
-      shell.openExternal(url);
+      // shell.openExternal(url);
     });
 
     return window;

@@ -11,5 +11,9 @@ declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
+    TButton: typeof import('tdesign-vue-next')['Button'];
+    THeader: typeof import('tdesign-vue-next')['Header'];
+    TLayout: typeof import('tdesign-vue-next')['Layout'];
+    ToolbarAction: typeof import('./src/components/Feather/toolbar-action.vue')['default'];
   }
 }
