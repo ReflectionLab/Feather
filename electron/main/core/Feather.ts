@@ -126,8 +126,8 @@ export default class Feather {
       process.exit(0);
     } else {
       await this.onCreated();
-      // this.onLaunch();
-      // this.onQuit();
+      this.onLaunch();
+      this.onQuit();
     }
   }
 }

@@ -1,10 +1,14 @@
 import { rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { join, resolve } from 'node:path';
 import { defineConfig } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import electron from 'vite-plugin-electron';
 import renderer from 'vite-plugin-electron-renderer';
+import AutoImport from 'unplugin-auto-import/vite';
+import Components from 'unplugin-vue-components/vite';
+import { TDesignResolver } from 'unplugin-vue-components/resolvers';
+import WindiCSS from 'vite-plugin-windicss';
 import pkg from './package.json';
 
 // https://vitejs.dev/config/
@@ -63,7 +67,33 @@ export default defineConfig(({ command }) => {
       ]),
       // Use Node.js API in the Renderer-process
       renderer(),
+      AutoImport({
+        resolvers: [
+          TDesignResolver({
+            library: 'vue-next',
+          }),
+        ],
+      }),
+      Components({
+        resolvers: [
+          TDesignResolver({
+            library: 'vue-next',
+          }),
+        ],
+      }),
+      WindiCSS(),
     ],
+    css: {
+      preprocessorOptions: {
+        less: {
+          modifyVars: {
+            hack: `true; @import (reference) "${resolve('src/style/variables.less')}";`,
+          },
+          math: 'strict',
+          javascriptEnabled: true,
+        },
+      },
+    },
     resolve: {
       alias: {
         '@': join(__dirname, 'src'),
