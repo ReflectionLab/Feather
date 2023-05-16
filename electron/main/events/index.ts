@@ -1,17 +1,11 @@
-import { ipcMain, IpcMainInvokeEvent } from 'electron';
-import WindowManager from '#/core/windowManager';
-import { GET_WINDOW, OPEN_WINDOW } from '#/constants/events';
-import { CreateWindowParams } from '#/types/window';
+type EventImportItem = { default: { listen: Function } };
 
-const windowManagerInstance: WindowManager = WindowManager.makeInstance();
 export default {
   listen() {
-    ipcMain.handle(GET_WINDOW, (event: IpcMainInvokeEvent, arg: string) => {
-      return windowManagerInstance.getWindowById(arg);
-    });
+    const eventImport: Record<string, EventImportItem> = import.meta.globEager('./modules/*.ts');
 
-    ipcMain.handle(OPEN_WINDOW, (event: IpcMainInvokeEvent, arg: CreateWindowParams) => {
-      windowManagerInstance.createWindow(arg);
+    Object.values(eventImport).map((item: { default: any }) => {
+      item.default.listen();
     });
   },
 };

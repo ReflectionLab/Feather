@@ -5,6 +5,7 @@ import WindowManager from './windowManager';
 import { setDefaultHeaders } from '../utils/cors';
 import { featherMkdirListSync } from '../utils/filesystem';
 import { registerSchemesAsPrivileged } from './protocol';
+import { registerGlobalShortcut } from './globalShortcut';
 import ipcEvent from '../events';
 import serverStart from '../server/app';
 
@@ -41,6 +42,7 @@ export default class Feather {
 
   private onLaunch() {
     app.whenReady().then(() => {
+      registerGlobalShortcut();
       Menu.setApplicationMenu(null);
       setDefaultHeaders();
       this.createWindow();
@@ -81,7 +83,7 @@ export default class Feather {
   private createWindow() {
     try {
       const dev = !app.isPackaged;
-      const devTool = true;
+      const devTool = false;
       const url = dev ? process.env.VITE_DEV_SERVER_URL : join(process.env.DIST, 'index.html');
       const preload = join(process.env.DIST_ELECTRON, 'preload/index.js');
 

@@ -1,13 +1,14 @@
 import type { WebPreferences } from 'electron';
 
-interface CreateWindowParams {
+export interface CreateWindowParams {
   title: string;
-  dev: boolean;
+  dev?: boolean;
   width: number;
   height: number;
   url: string;
   icon?: string;
   frame?: boolean;
+  transparent?: boolean;
   devTool?: boolean;
   webPreferences?: WebPreferences;
 }

@@ -7,9 +7,11 @@ themeStore.loadTheme();
 
 <template>
   <router-view v-slot="{ Component, route }">
-    <transition>
-      <component :is="Component" :key="route.name" />
-    </transition>
+    <keep-alive>
+      <transition>
+        <component :is="Component" :key="route.name" />
+      </transition>
+    </keep-alive>
   </router-view>
 </template>
 

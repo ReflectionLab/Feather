@@ -102,7 +102,6 @@ const createSelected = (name: string | null) => {
   height: 36px;
   margin: 0 12px;
   cursor: pointer;
-  -webkit-app-region: no-drag;
   border-radius: 8px;
   .toolbar-tabs-icon {
     width: 24px;

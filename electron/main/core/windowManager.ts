@@ -1,4 +1,4 @@
-import { BrowserWindow, shell, WebPreferences } from 'electron';
+import { BrowserWindow, WebPreferences } from 'electron';
 import { join } from 'node:path';
 import { CreateWindowParams } from '../types/window';
 
@@ -37,27 +37,31 @@ export default class WindowManager {
     WindowManager.windowMap.delete(key);
   }
 
-  getWindowById(key: string) {
+  getWindowById(key: string): WindowItem {
     return WindowManager.windowMap.get(key);
   }
 
-  getFirstWindow() {
+  getFirstWindow(): BrowserWindow {
     return WindowManager.windowMap.values().next().value.window;
   }
 
-  length() {
+  getFocusedWindow(): BrowserWindow {
+    return BrowserWindow.getFocusedWindow();
+  }
+
+  length(): number {
     return WindowManager.windowMap.size;
   }
 
   createWindow(params: CreateWindowParams) {
     // eslint-disable-next-line prefer-const
-    let { title, dev, width, height, url, icon, frame, devTool, webPreferences } = params;
+    let { title, dev, width, height, url, icon, frame, transparent, devTool, webPreferences } = params;
     webPreferences = webPreferences || defaultWebPreferences;
     icon = icon || join(process.env.PUBLIC, 'assets/icons/feather-icon-256.ico');
 
     if (devTool == undefined) devTool = dev;
     if (frame == undefined) frame = true;
-    const transparent = !frame;
+    if (transparent == undefined) transparent = false;
 
     const currentWindowItem: WindowItem = WindowManager.instance.getWindowById(title);
     if (currentWindowItem) {
@@ -92,14 +96,12 @@ export default class WindowManager {
         id: window.webContents.id,
         window,
       });
-      // window?.webContents.send('main-process-message', new Date().toLocaleString())
     });
 
     window.webContents.on('destroyed', () => {
       this.removeWindowId(title);
     });
 
-    // Make all links open with the browser, not with the application
     window.webContents.on('will-navigate', (event, url) => {
       event.preventDefault();
       // shell.openExternal(url);

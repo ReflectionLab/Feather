@@ -5,4 +5,5 @@ const store: Pinia = createPinia();
 
 export * from './modules/resize';
 export * from './modules/themes';
+export * from './modules/window';
 export { store };

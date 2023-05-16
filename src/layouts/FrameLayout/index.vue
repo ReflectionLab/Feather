@@ -1,18 +1,29 @@
 <script setup lang="ts">
+import LayoutAside from './components/aside.vue';
 import Toolbar from './components/toolbar.vue';
+import { ref } from 'vue';
+
+const height = ref<number>(72);
 </script>
 
 <template>
   <t-layout class="full-page">
-    <t-header height="64px">
-      <toolbar logo-background-color="#fff" />
-    </t-header>
+    <t-aside width="60px">
+      <layout-aside :height="height" />
+    </t-aside>
     <t-layout>
-      <router-view v-slot="{ Component, route }">
-        <transition>
-          <component :is="Component" :key="route.name" />
-        </transition>
-      </router-view>
+      <t-header :height="`${height}px`">
+        <toolbar />
+      </t-header>
+      <t-content>
+        <router-view v-slot="{ Component, route }">
+          <keep-alive>
+            <transition>
+              <component :is="Component" :key="route.name" />
+            </transition>
+          </keep-alive>
+        </router-view>
+      </t-content>
     </t-layout>
   </t-layout>
 </template>
