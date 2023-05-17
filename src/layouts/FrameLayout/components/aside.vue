@@ -1,6 +1,9 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import { computed } from 'vue';
-import FeatherLogo from '@/assets/icons/feather-icon-96.png';
+import { useThemeStore } from '@/store';
+import IconButton from '@/components/Feather/IconButton.vue';
+
+const themeStore = useThemeStore();
 
 interface Props {
   height?: number;
@@ -13,6 +16,17 @@ const props = withDefaults(defineProps<Props>(), {
 const logoHeight = computed(() => {
   return props.height > 0 ? props.height + 'px' : 0;
 });
+
+const BackSvg = () => {
+  return (
+    <svg class="icon" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M759.48 52.38c19.53 19.53 19.53 51.18 0 70.71L370.58 512l388.91 388.91c19.53 19.53 19.53 51.18 0 70.71-19.53 19.53-51.18 19.53-70.71 0L264.52 547.36c-19.53-19.53-19.53-51.18 0-70.71L688.78 52.38c19.51-19.53 51.18-19.53 70.7 0z"
+        fill={themeStore.theme === 'light' ? '#000000' : '#ffffff'}
+      ></path>
+    </svg>
+  );
+};
 </script>
 
 <template>
@@ -23,7 +37,7 @@ const logoHeight = computed(() => {
         height: logoHeight,
       }"
     >
-      <img class="toolbar-logo-image" :src="FeatherLogo" alt="FeatherLogo" />
+      <icon-button :icon-svg="BackSvg"></icon-button>
     </div>
     <div
       class="toolbar-actions flex flex-col items-center"

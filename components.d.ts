@@ -9,6 +9,7 @@ export {};
 
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
+    IconButton: typeof import('./src/components/Feather/IconButton.vue')['default'];
     RouterLink: typeof import('vue-router')['RouterLink'];
     RouterView: typeof import('vue-router')['RouterView'];
     TAside: typeof import('tdesign-vue-next')['Aside'];

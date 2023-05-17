@@ -87,7 +87,7 @@ const createSelected = (name: string | null) => {
   <div
     v-for="(item, index) in tabList"
     :key="index"
-    :class="`toolbar-tabs-icon-box flex items-center justify-center ${
+    :class="`toolbar-tabs-icon-box flex flex-col items-center justify-center ${
       item.selected ? 'toolbar-tabs-icon-box-selected shadow-lg' : ''
     }`"
     @click="pathTo(item)"
