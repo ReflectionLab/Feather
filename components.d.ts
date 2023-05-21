@@ -16,6 +16,7 @@ declare module '@vue/runtime-core' {
     TButton: typeof import('tdesign-vue-next')['Button'];
     TContent: typeof import('tdesign-vue-next')['Content'];
     THeader: typeof import('tdesign-vue-next')['Header'];
+    TIcon: typeof import('tdesign-vue-next')['Icon'];
     TLayout: typeof import('tdesign-vue-next')['Layout'];
     ToolbarAction: typeof import('./src/components/Feather/toolbar-action.vue')['default'];
   }
